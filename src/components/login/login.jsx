@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import styles from './login.module.css';
 import { FaChartLine } from "react-icons/fa";
 
-const Login = (props) => {
+const Login = () => {
     const formRef = useRef();
     const idRef = useRef();
     const passwordRef = useRef();
@@ -13,36 +13,41 @@ const Login = (props) => {
             password: passwordRef.current.value,
         };
 
-        if (!loginInfo.id || !loginInfo.password) {
+        if (!loginInfo.id) {
             return alert('로그인 정보를 확인해주세요 :)');
+        } else if (loginInfo.id === 'admin' && loginInfo.password === '') {
+            console.log(loginInfo);
+
         }
     };
 
     return (
-        <div className={styles.login}>
-            <h1 className={styles.title}>
-                <FaChartLine className={styles.FaChartLine} />무야호ㅋ
-            </h1>
-            <form
-                className={styles.form}
-                ref={formRef}
-            >
-                <input
-                    type="text"
-                    placeholder="아이디를 입력해주세요"
-                    ref={idRef}
-                />
-                <input
-                    type="password"
-                    placeholder="비밀번호를 입력해주세요"
-                    ref={passwordRef}
-                />
-                <button
-                    type="button"
-                    className={styles.button}
-                    onClick={onLoginSubmit}
-                >LOGIN</button>
-            </form>
+        <div className={styles.container}>
+            <div className={styles.login}>
+                <h1 className={styles.title}>
+                    <FaChartLine className={styles.FaChartLine} />무야호ㅋ
+                </h1>
+                <form
+                    className={styles.form}
+                    ref={formRef}
+                >
+                    <input
+                        type="text"
+                        placeholder="아이디를 입력해주세요"
+                        ref={idRef}
+                    />
+                    <input
+                        type="password"
+                        placeholder="비밀번호를 입력해주세요"
+                        ref={passwordRef}
+                    />
+                    <button
+                        type="button"
+                        className={styles.button}
+                        onClick={onLoginSubmit}
+                    >LOGIN</button>
+                </form>
+            </div>
         </div>
     );
 };

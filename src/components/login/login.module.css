@@ -6,6 +6,13 @@
     font-weight: 300;
 }
 
+.container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .login {
     width: 25em;
     padding: 1em;
