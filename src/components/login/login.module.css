@@ -1,0 +1,53 @@
+@value commonWhite, commonRed, commonGrey from '../../common/color.css';
+
+@font-face {
+    font-family: 'cafe24-ssuround';
+    src: url(../../fonts/Cafe24Ssurround.ttf) format('truetype');
+    font-weight: 300;
+}
+
+.login {
+    width: 25em;
+    padding: 1em;
+    border: 2px solid commonWhite;
+    background-color: commonWhite;
+    border-radius: 5px;
+}
+
+.title {
+    color: commonRed;
+    font-family: 'cafe24-ssuround';
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+input,
+button {
+    border-radius: 3px;
+}
+
+input {
+    height: 2em;
+    padding: 0.8em;
+    margin-bottom: 1em;
+    border: 0.5px solid commonGrey;
+}
+
+input:focus {
+    outline-color: commonRed;
+}
+
+button {
+    height: 3em;
+    border: 0;
+    font-weight: bold;
+    color: commonWhite;
+    background-color: commonRed;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+        0px 2px 2px 0px rgb(0 0 0 / 14%),
+        0px 1px 5px 0px rgb(0 0 0 / 12%);
+}
+
