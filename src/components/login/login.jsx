@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import styles from './login.module.css';
+import { FaChartLine } from "react-icons/fa";
 
 const Login = (props) => {
     const formRef = useRef();
@@ -11,7 +12,7 @@ const Login = (props) => {
             id: idRef.current.value,
             password: passwordRef.current.value,
         };
-        
+
         if (!loginInfo.id || !loginInfo.password) {
             return alert('로그인 정보를 확인해주세요 :)');
         }
@@ -19,8 +20,10 @@ const Login = (props) => {
 
     return (
         <div className={styles.login}>
-            <h1 className={styles.title}>무야호</h1>
-            <form 
+            <h1 className={styles.title}>
+                <FaChartLine className={styles.FaChartLine} />무야호ㅋ
+            </h1>
+            <form
                 className={styles.form}
                 ref={formRef}
             >
