@@ -1,11 +1,19 @@
 import React, { useRef } from 'react';
 import styles from './login.module.css';
+import { useNavigate, } from 'react-router-dom';
 import { FaChartLine } from "react-icons/fa";
 
 const Login = () => {
     const formRef = useRef();
     const idRef = useRef();
     const passwordRef = useRef();
+    const navigate = useNavigate();
+
+    const onKeyDown = event => {
+        if (event.keyCode === 13) {
+            onLoginSubmit();
+        }
+    };
 
     const onLoginSubmit = event => {
         const loginInfo = {
@@ -13,12 +21,10 @@ const Login = () => {
             password: passwordRef.current.value,
         };
 
-        if (!loginInfo.id) {
-            return alert('로그인 정보를 확인해주세요 :)');
-        } else if (loginInfo.id === 'admin' && loginInfo.password === '') {
-            console.log(loginInfo);
-
+        if (loginInfo.id === 'admin' && loginInfo.password === '') {
+            return navigate('/dashboard');
         }
+        alert('로그인 정보를 확인해주세요!');
     };
 
     return (
@@ -35,11 +41,13 @@ const Login = () => {
                         type="text"
                         placeholder="아이디를 입력해주세요"
                         ref={idRef}
+                        onKeyDown={onKeyDown}
                     />
                     <input
                         type="password"
                         placeholder="비밀번호를 입력해주세요"
                         ref={passwordRef}
+                        onKeyDown={onKeyDown}
                     />
                     <button
                         type="button"
