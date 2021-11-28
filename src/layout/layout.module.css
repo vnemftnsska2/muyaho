@@ -1,0 +1,16 @@
+@value commonGrey from '../common/color.css';
+
+.layout {
+  
+  height: 100vh;
+  display: flex;
+}
+
+.menu {
+  flex: 1 1 12%;
+  border-right: 1px solid commonGrey;
+}
+
+.main {
+  flex: 1 1 88%;
+}

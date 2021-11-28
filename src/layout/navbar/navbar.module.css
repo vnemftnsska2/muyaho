@@ -1,0 +1,54 @@
+@value realWhite, commonWhite, commonRed, commonGrey from '../../common/color.css';
+
+@font-face {
+  font-family: 'cafe24-ssuround';
+  src: url(../../fonts/Cafe24Ssurround.ttf) format('truetype');
+  font-weight: 300;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin: 0;
+  max-height: 2.5em;
+  padding: 0.2em 0.5em;
+  color: commonRed;
+  background-color: realWhite;
+  border-bottom: .3px solid commonGrey;
+  font-family: 'cafe24-ssuround';
+  font-size: 40px;
+}
+
+.title .icon {
+  margin-bottom: -10px;
+}
+
+.ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.ul > li {
+  padding: 0.7em 1em;
+  vertical-align: middle;
+  color: realWhite;
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  border-bottom: 1px solid commonGrey;
+}
+
+.ul > li:hover {
+  background-color: realWhite;
+  color: commonRed;
+}
+
+.ul > li > .icon {
+  font-size: 1.2em;
+  margin-bottom: -5px;
+  margin-right: 0.5em;
+}
