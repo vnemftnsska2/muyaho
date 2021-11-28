@@ -5,7 +5,7 @@ import Header from './header/header';
 import NavBar from './navbar/navbar';
 import Footer from './footer/footer';
 
-const Layout = ({ children }) => {
+const Layout = (prop) => {
     return (
         <>
             <Header />

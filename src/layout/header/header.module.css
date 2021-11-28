@@ -1,0 +1,45 @@
+@value commonWhite, commonRed, commonGrey from '../../common/color.css';
+
+.header {
+    position: relative;
+    padding: 0.8rem 1rem;
+    background-color: commonWhite;
+}
+
+.list {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+.menuButton {
+    cursor: pointer;
+    border: 1px solid transparent;
+    color: commonRed;
+    border-color: commonRed;
+    background-color: commonWhite;
+    user-select: none;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.menuButton:hover {
+    color: commonWhite;
+    background-color: commonRed;
+}
+
+.menuIcon {
+    margin-top: .2em;
+    font-size: 1.5em;
+    font-weight: lighter;
+    overflow: hidden;
+}
+
+.search {
+    border: 0.5px solid commonGrey;
+    height: 1.9em;
+    padding: .1em .5em;
+}

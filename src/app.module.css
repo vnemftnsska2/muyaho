@@ -9,3 +9,12 @@
   height: 100vh;
   background-color: commonRed;  
 }
+
+input,
+button {
+  border-radius: 3px;
+}
+
+input {
+  height: 1.5em;
+}

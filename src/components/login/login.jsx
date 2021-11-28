@@ -39,12 +39,14 @@ const Login = () => {
                 >
                     <input
                         type="text"
+                        className={styles.input}
                         placeholder="아이디를 입력해주세요"
                         ref={idRef}
                         onKeyDown={onKeyDown}
                     />
                     <input
                         type="password"
+                        className={styles.input}
                         placeholder="비밀번호를 입력해주세요"
                         ref={passwordRef}
                         onKeyDown={onKeyDown}
