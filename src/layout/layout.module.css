@@ -1,16 +1,16 @@
-@value commonGrey from '../common/color.css';
+@value realWhite, commonGrey from '../common/color.css';
 
 .layout {
-  
   height: 100vh;
   display: flex;
+  background-color: realWhite;
 }
 
 .menu {
-  flex: 1 1 12%;
+  flex: 1 1 15%;
   border-right: 1px solid commonGrey;
 }
 
 .main {
-  flex: 1 1 88%;
+  flex: 1 1 85%;
 }

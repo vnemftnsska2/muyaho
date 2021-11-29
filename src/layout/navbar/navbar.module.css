@@ -14,12 +14,12 @@
 .title {
   margin: 0;
   max-height: 2.5em;
-  padding: 0.2em 0.5em;
+  padding: 0.39em 0.5em;
   color: commonRed;
   background-color: realWhite;
   border-bottom: .3px solid commonGrey;
   font-family: 'cafe24-ssuround';
-  font-size: 40px;
+  font-size: 2em;
 }
 
 .title .icon {
