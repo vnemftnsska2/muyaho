@@ -4,6 +4,7 @@ import { FaChartLine, FaChartPie } from "react-icons/fa";
 import { AiOutlineDashboard, AiFillSetting } from "react-icons/ai";
 import { BsFillPersonFill, BsPencilSquare, BsEmojiSmile, BsMinecartLoaded } from "react-icons/bs";
 import { FaRegListAlt } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 const Navbar = (props) => {
     return (
@@ -13,10 +14,14 @@ const Navbar = (props) => {
             </div>
             <ul className={styles.ul}>
                 <li>
-                    <AiOutlineDashboard className={styles.icon} />DASHBOARD
+                    <Link to="dashboard" className={styles.link}>
+                        <AiOutlineDashboard className={styles.icon} />DASHBOARD
+                    </Link>
                 </li>
                 <li>
-                    <BsFillPersonFill className={styles.icon} />MY INFO
+                    <Link to="myInfo" className={styles.link}>
+                        <BsFillPersonFill className={styles.icon} />MY INFO
+                    </Link>
                 </li>
                 <li>
                     <BsMinecartLoaded className={styles.icon} />MY LIST
