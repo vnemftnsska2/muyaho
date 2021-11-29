@@ -13,33 +13,45 @@ const Navbar = (props) => {
                 <FaChartLine className={styles.icon} /> 무야호
             </div>
             <ul className={styles.ul}>
-                <li>
+                <li className={styles.li}>
                     <Link to="dashboard" className={styles.link}>
                         <AiOutlineDashboard className={styles.icon} />DASHBOARD
                     </Link>
                 </li>
-                <li>
+                <li className={styles.li}>
                     <Link to="myInfo" className={styles.link}>
                         <BsFillPersonFill className={styles.icon} />MY INFO
                     </Link>
                 </li>
-                <li>
-                    <BsMinecartLoaded className={styles.icon} />MY LIST
+                <li className={styles.li}>
+                    <Link to="myInfo" className={styles.link}>
+                        <BsMinecartLoaded className={styles.icon} />MY LIST
+                    </Link>
                 </li>
-                <li>
-                    <FaRegListAlt className={styles.icon} />READING
+                <li className={styles.li}>
+                    <Link to="reading" className={styles.link}>
+                        <FaRegListAlt className={styles.icon} />READING
+                    </Link>
                 </li>
-                <li>
-                    <BsPencilSquare className={styles.icon} />ANALYSIS
+                <li className={styles.li}>
+                    <Link to="analysis" className={styles.link}>
+                        <BsPencilSquare className={styles.icon} />ANALYSIS
+                    </Link>
                 </li>
-                <li>
-                    <BsEmojiSmile className={styles.icon} />FREE TALK
+                <li className={styles.li}>
+                    <Link to="freeTalk" className={styles.link}>
+                        <BsEmojiSmile className={styles.icon} />FREE TALK
+                    </Link>
                 </li>
-                <li>
-                    <FaChartPie className={styles.icon} />REPORT
+                <li className={styles.li}>
+                    <Link to="report" className={styles.link}>
+                        <FaChartPie className={styles.icon} />REPORT
+                    </Link>
                 </li>
-                <li>
-                    <AiFillSetting className={styles.icon} />SETTING
+                <li className={styles.li}>
+                    <Link to="setting" className={styles.link}>
+                        <AiFillSetting className={styles.icon} />SETTING
+                    </Link>
                 </li>
             </ul>
         </nav>
