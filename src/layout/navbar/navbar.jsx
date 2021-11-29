@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './navbar.module.css';
 import { FaChartLine, FaChartPie } from "react-icons/fa";
-import { AiOutlineDashboard } from "react-icons/ai";
-import { BsFillPersonFill, BsPencilSquare, BsEmojiSmile } from "react-icons/bs";
+import { AiOutlineDashboard, AiFillSetting } from "react-icons/ai";
+import { BsFillPersonFill, BsPencilSquare, BsEmojiSmile, BsMinecartLoaded } from "react-icons/bs";
 import { FaRegListAlt } from "react-icons/fa";
 
 const Navbar = (props) => {
@@ -19,6 +19,9 @@ const Navbar = (props) => {
                     <BsFillPersonFill className={styles.icon} />MY INFO
                 </li>
                 <li>
+                    <BsMinecartLoaded className={styles.icon} />MY LIST
+                </li>
+                <li>
                     <FaRegListAlt className={styles.icon} />READING
                 </li>
                 <li>
@@ -28,10 +31,10 @@ const Navbar = (props) => {
                     <BsEmojiSmile className={styles.icon} />FREE TALK
                 </li>
                 <li>
-                    <FaRegListAlt className={styles.icon} />READING
+                    <FaChartPie className={styles.icon} />REPORT
                 </li>
                 <li>
-                    <FaChartPie className={styles.icon} />REPORT
+                    <AiFillSetting className={styles.icon} />SETTING
                 </li>
             </ul>
         </nav>
