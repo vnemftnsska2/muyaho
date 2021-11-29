@@ -1,6 +1,11 @@
 @value realWhite, commonWhite, commonRed, commonGrey from '../../common/color.css';
 
 @font-face {
+  font-family: 'cafe24-decoshadow';
+  src: url(../../fonts/eng/Cafe24Decoshadow.ttf) format('truetype');
+}
+
+@font-face {
   font-family: 'cafe24-ssuround';
   src: url(../../fonts/Cafe24Ssurround.ttf) format('truetype');
   font-weight: 300;
@@ -30,25 +35,41 @@
   padding: 0;
   margin: 0;
   list-style: none;
+  font-family: 'cafe24-decoshadow';
+  /* text-shadow: 2px 2px 2px lightgray; */
 }
 
 .li {
   padding: 0.7em 1em;
   vertical-align: middle;
-  color: realWhite;
   font-size: 1.2em;
   font-weight: bold;
   cursor: pointer;
   border-bottom: 1px solid commonGrey;
 }
 
-.li:hover {
-  background-color: realWhite;
+.action {
+  background-color: #FDEFEE;
+}
+
+.action .link {
+  color: #40a9ff;
+}
+
+.link {
   color: commonRed;
+}
+
+.li:hover {
+  background-color: #FDEFEE;
+}
+
+.li:hover .link {
+  color: #40a9ff;
 }
 
 .link > .icon {
   font-size: 1.2em;
   margin-bottom: -5px;
-  margin-right: 0.5em;
+  margin-right: 0.7em;
 }

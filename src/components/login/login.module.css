@@ -25,7 +25,7 @@
     color: commonRed;
     font-size: 2em;
     font-family: 'cafe24-ssuround';
-    margin-top: 0.3em;
+    margin-bottom: .5em;    
 }
 
 .FaChartLine {
@@ -40,7 +40,7 @@
 }
 
 .input {
-    height: 2em;
+    height: 1.2rem;
     padding: 0.8em;
     margin-bottom: 1em;
     border: 0.5px solid commonGrey;

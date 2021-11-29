@@ -13,8 +13,12 @@ const Layout = (prop) => {
             </div>
             <div className={styles.main}>
                 <Header />
-                <Outlet />
-                <Footer />
+                <div className={styles.container}>
+                    <Outlet />
+                </div>
+                <footer className={styles.footer}>
+                    <Footer />
+                </footer>
             </div>
         </div>
     );

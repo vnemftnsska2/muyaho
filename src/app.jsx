@@ -13,8 +13,6 @@ import FreeTalk from './components/free_talk/free_talk';
 import Report from './components/report/report';
 import Setting from './components/setting/setting';
 
-
-
 const App = () => {
   return (
     <div className={styles.app}>

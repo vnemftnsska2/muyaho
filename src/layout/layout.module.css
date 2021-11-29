@@ -1,4 +1,4 @@
-@value realWhite, commonGrey from '../common/color.css';
+@value realWhite, commonRed, commonGrey from '../common/color.css';
 
 .layout {
   height: 100vh;
@@ -13,4 +13,20 @@
 
 .main {
   flex: 1 1 85%;
+}
+
+.container {
+  padding: .5em;
+  min-height: 90%;
+  position: relative;
+}
+
+.footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4em;
+  padding: 1em;
+  text-align: center;
 }

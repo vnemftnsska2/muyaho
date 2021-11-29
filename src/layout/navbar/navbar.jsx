@@ -7,13 +7,20 @@ import { FaRegListAlt } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
 const Navbar = (props) => {
+    const clickMenu = event => {
+        const target = event.target;
+        if (target.tagName === 'LI') {
+            target.children[0].click();
+        }
+    };
+
     return (
-        <nav className={styles.nav}>
+        <nav className={styles.nav} onClick={clickMenu}>
             <div className={styles.title}>
                 <FaChartLine className={styles.icon} /> 무야호
             </div>
             <ul className={styles.ul}>
-                <li className={styles.li}>
+                <li className={`${styles.li} ${styles.action}`}>
                     <Link to="dashboard" className={styles.link}>
                         <AiOutlineDashboard className={styles.icon} />DASHBOARD
                     </Link>
@@ -24,7 +31,7 @@ const Navbar = (props) => {
                     </Link>
                 </li>
                 <li className={styles.li}>
-                    <Link to="myInfo" className={styles.link}>
+                    <Link to="myList" className={styles.link}>
                         <BsMinecartLoaded className={styles.icon} />MY LIST
                     </Link>
                 </li>

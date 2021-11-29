@@ -1,4 +1,7 @@
 import React, { useState, useEffect, } from 'react';
+import styles from './reading.module.css';
+import PageTitle from '../page_title/page_title';
+
 
 const Reading = () => {
     const [readingList, setReadingList] = useState([]);
@@ -10,11 +13,13 @@ const Reading = () => {
                 "Content-Type": "application/json",
             },
         })
-        .then(res => console.log(res));
+            .then(res => console.log(res));
     }, [readingList]);
 
     return (
-        <h1>READING</h1>
+        <>
+            <PageTitle title='READING' />
+        </>
     );
 };
 
