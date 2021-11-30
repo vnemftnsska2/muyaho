@@ -7,15 +7,16 @@ const Reading = () => {
     const [readingList, setReadingList] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/reading', {
+        fetch('/api/reading', {
             mode: 'no-cors',
             method: 'GET',
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
             },
         })
-        .then(res => console.log(res))
-        .catch(err =>console.log);
+            .then(res => res.json())
+            .then(console.log)
+            .catch(console.log);
     }, [readingList]);
 
     return (
