@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './app.module.css';
 import { BrowserRouter, Routes, Route, } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './components/login/login';
 import Layout from './layout/layout';
 import Dashboard from './components/dashboard/dashboard';

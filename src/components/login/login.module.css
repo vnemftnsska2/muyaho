@@ -23,13 +23,11 @@
 
 .title {
     color: commonRed;
-    font-size: 2em;
     font-family: 'cafe24-ssuround';
-    margin-bottom: .5em;    
+    margin-bottom: .3em;    
 }
 
 .FaChartLine {
-    margin-bottom: -10px;
     margin-right: 0.5em;
     font-size: 40px;
 }
@@ -40,7 +38,6 @@
 }
 
 .input {
-    height: 1.2rem;
     padding: 0.8em;
     margin-bottom: 1em;
     border: 0.5px solid commonGrey;

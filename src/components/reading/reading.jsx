@@ -9,11 +9,13 @@ const Reading = () => {
     useEffect(() => {
         fetch('http://localhost:5000/reading', {
             mode: 'no-cors',
+            method: 'GET',
             headers: {
                 "Content-Type": "application/json",
             },
         })
-            .then(res => console.log(res));
+        .then(res => console.log(res))
+        .catch(err =>console.log);
     }, [readingList]);
 
     return (
