@@ -1,0 +1,11 @@
+@value realWhite, commonWhite, commonRed, commonGrey from '../../common/color.css';
+@font-face {
+  font-family: 'cafe24-ssuround';
+  src: url(../../fonts/eng/Cafe24Decobox.ttf) format('truetype');
+  font-weight: 300;
+}
+
+.title {
+  color: commonGrey;
+  font-family: 'cafe24-ssuround';
+}

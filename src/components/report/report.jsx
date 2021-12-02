@@ -1,8 +1,11 @@
 import React from 'react';
+import PageTitle from '../page_title/page_title';
 
 const Report = () => {
     return (
-        <h1>REPORT</h1>
+        <>
+            <PageTitle title={'REPORT'}/ >
+        </>
     );
 };
 
