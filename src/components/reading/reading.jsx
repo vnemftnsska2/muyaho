@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useMemo, } from 'react';
 import styles from './reading.module.css';
 import PageTitle from '../page_title/page_title';
-import Table from '../table/table';
+import { Table } from 'antd';
+import _default from 'rc-trigger';
 
 
 const Reading = () => {
@@ -16,7 +17,7 @@ const Reading = () => {
         })
         .then(res => res.json())
         .then(result => {
-            return result.list
+            return result.list;
         })
         .catch(err => {
             console.log(err);
@@ -26,64 +27,65 @@ const Reading = () => {
 
     useEffect(async () => {
         const data = await getReadingList();
+        console.log(data);
         setReadingList(data);
     }, []);
 
     const columns = useMemo(() => [
         {
-            accessor: 'code',
-            Header: 'CODE'
+            dataIndex: 'code',
+            title: 'CODE'
         },
         {
-            accessor: 'name',
-            Header: '종목명'
+            dataIndex: 'name',
+            title: '종목명'
         },
         {
-            accessor: 'type',
-            Header: '투자전략'
+            dataIndex: 'type',
+            title: '투자전략'
         },
         {
-            accessor: 'current_price',
-            Header: '현재가'
+            dataIndex: 'current_price',
+            title: '현재가'
         },
         {
-            accessor: 'first_price',
-            Header: '1차 가격'
+            dataIndex: 'first_price',
+            title: '1차 가격'
         },
         {
-            accessor: 'second_price',
-            Header: '2차 가격'
+            dataIndex: 'second_price',
+            title: '2차 가격'
         },
         {
-            accessor: 'third_price',
-            Header: '3차 가격'
+            dataIndex: 'third_price',
+            title: '3차 가격'
         },
         {
-            accessor: 'goal_price',
-            Header: '목표가'
+            dataIndex: 'goal_price',
+            title: '목표가'
         },
         {
-            accessor: 'loss_price',
-            Header: '손실가'
+            dataIndex: 'loss_price',
+            title: '손실가'
         },
         {
-            accessor: 'read_dt',
-            Header: '리딩날짜'
+            dataIndex: 'read_dt',
+            title: '리딩날짜'
         },
         {
-            accessor: 'goal_dt',
-            Header: '리딩날짜'
+            dataIndex: 'goal_dt',
+            title: '리딩날짜'
         },
         {
-            accessor: 'loss_dt',
-            Header: '리딩날짜'
+            dataIndex: 'loss_dt',
+            title: '리딩날짜'
         },
     ], []);
 
     return (
         <>
             <PageTitle title='READING' />
-            <Table columns={columns} data={readingList}/>
+            <Table columns={columns} dataSource={readingList}/>
         </>
     );
 };

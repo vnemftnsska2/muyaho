@@ -30,6 +30,7 @@
 .FaChartLine {
     margin-right: 0.5em;
     font-size: 40px;
+    vertical-align: middle;
 }
 
 .form {

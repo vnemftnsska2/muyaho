@@ -19,12 +19,12 @@
 .title {
   margin: 0;
   max-height: 2.35em;
-  padding: 0.39em 0.5em;
+  padding: 0.57em 0.8em;
   color: commonRed;
   background-color: realWhite;
   border-bottom: .3px solid commonGrey;
   font-family: 'cafe24-ssuround';
-  font-size: 1.69em;
+  font-size: 1.95em;
 }
 
 .ul {
@@ -67,4 +67,8 @@
 .link > .icon {
   font-size: 1.2em;
   margin-right: 0.7em;
+}
+
+.icon {
+  vertical-align: middle;
 }
