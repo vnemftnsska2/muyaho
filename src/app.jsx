@@ -9,7 +9,7 @@ import Dashboard from './components/dashboard/dashboard';
 import Error404 from './components/error_404/error_404';
 import MyInfo from './components/my_info/my_info';
 import MyList from './components/my_list/my_list';
-import Reading from './components/reading/reading';
+import Leading from './components/leading/leading';
 import Analysis from './components/anlysis/analysis';
 import FreeTalk from './components/free_talk/free_talk';
 import Report from './components/report/report';
@@ -25,7 +25,7 @@ const App = () => {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="myInfo" element={<MyInfo />} />
             <Route path="myList" element={<MyList />} />
-            <Route path="reading" element={<Reading />} />
+            <Route path="leading" element={<Leading />} />
             <Route path="analysis" element={<Analysis />} />
             <Route path="freeTalk" element={<FreeTalk />} />
             <Route path="report" element={<Report />} />

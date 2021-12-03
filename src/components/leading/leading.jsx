@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useMemo, } from 'react';
-import styles from './reading.module.css';
+import styles from './leading.module.css';
 import PageTitle from '../page_title/page_title';
 import { Table } from 'antd';
 import _default from 'rc-trigger';
 
 
-const Reading = () => {
+const Leading = () => {
     const [leadingList, setLeadingList] = useState([]);
     const getLeadingList = () => {
         return fetch('/api/reading', {
@@ -27,7 +27,6 @@ const Reading = () => {
 
     useEffect(async () => {
         const data = await getLeadingList();
-        console.log(data);
         setLeadingList(data);
     }, []);
 
@@ -90,4 +89,4 @@ const Reading = () => {
     );
 };
 
-export default Reading;
+export default Leading;

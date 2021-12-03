@@ -36,8 +36,8 @@ const Navbar = (props) => {
                     </Link>
                 </li>
                 <li className={styles.li}>
-                    <Link to="reading" className={styles.link}>
-                        <FaRegListAlt className={styles.icon} />READING
+                    <Link to="leading" className={styles.link}>
+                        <FaRegListAlt className={styles.icon} />LEADING
                     </Link>
                 </li>
                 <li className={styles.li}>
