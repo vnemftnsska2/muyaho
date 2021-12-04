@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, } from 'react';
 import styles from './leading.module.css';
 import PageTitle from '../page_title/page_title';
-import { Table } from 'antd';
+import { Table, Row, Col, Button } from 'antd';
 import _default from 'rc-trigger';
 
 
@@ -84,7 +84,14 @@ const Leading = () => {
     return (
         <>
             <PageTitle title='LEADING' />
-            <Table columns={columns} dataSource={leadingList}/>
+            <Row>
+                <Col col={1} offset={15}>
+                    <Button danger>추가</Button>
+                </Col>
+            </Row>
+            <Row>
+                <Table columns={columns} dataSource={leadingList}/>
+            </Row>
         </>
     );
 };
