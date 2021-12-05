@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useMemo, } from 'react';
 import styles from './leading.module.css';
 import PageTitle from '../page_title/page_title';
-import { Table, Row, Col, Button, } from 'antd';
+import { Table, Row, Col, Button, Modal, Input, } from 'antd';
 import { PlusCircleOutlined, } from '@ant-design/icons';
 import _default from 'rc-trigger';
 
 
 const Leading = () => {
     const [leadingList, setLeadingList] = useState([]);
+    const [isVisible, setIsVisible] = useState(false);
     const getLeadingList = () => {
         return fetch('/api/reading', {
             mode: 'no-cors',
@@ -33,6 +34,10 @@ const Leading = () => {
         const data = await getLeadingList();
         setLeadingList(data);
     }, []);
+
+    const handleShowModal = () => {
+        setIsVisible(true);
+    };
 
     const columns = useMemo(() => [
         {
@@ -93,7 +98,9 @@ const Leading = () => {
                     <Button
                         className={styles.addButton}
                         type="primary"
-                        danger>
+                        danger
+                        onClick={handleShowModal}    
+                    >
                     <PlusCircleOutlined />추가
                     </Button>
                 </Col>
@@ -109,6 +116,11 @@ const Leading = () => {
                     scroll={{ y: 600 }}
                 />
             </Row>
+            <Modal
+                visible={isVisible}
+            >
+                <Input />
+            </Modal>
         </>
     );
 };
