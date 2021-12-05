@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useMemo, } from 'react';
 import styles from './leading.module.css';
 import PageTitle from '../page_title/page_title';
-import { Table, Row, Col, Button } from 'antd';
+import { Table, Row, Col, Button, } from 'antd';
+import { PlusCircleOutlined, } from '@ant-design/icons';
 import _default from 'rc-trigger';
 
 
@@ -17,7 +18,10 @@ const Leading = () => {
         })
         .then(res => res.json())
         .then(result => {
-            return result.list;
+            return result.list.map(stock => {
+                stock.key = stock.code;
+                return stock;
+            });
         })
         .catch(err => {
             console.log(err);
@@ -84,13 +88,26 @@ const Leading = () => {
     return (
         <>
             <PageTitle title='LEADING' />
-            <Row>
-                <Col col={1} offset={15}>
-                    <Button danger>추가</Button>
+            <Row justify="end">
+                <Col span={32}>
+                    <Button
+                        className={styles.addButton}
+                        type="primary"
+                        danger>
+                    <PlusCircleOutlined />추가
+                    </Button>
                 </Col>
             </Row>
             <Row>
-                <Table columns={columns} dataSource={leadingList}/>
+                <Table
+                    className={styles.table}
+                    bordered
+                    size="small"
+                    columns={columns}
+                    dataSource={leadingList}
+                    pagination={{ pageSize: 50 }}
+                    scroll={{ y: 600 }}
+                />
             </Row>
         </>
     );
