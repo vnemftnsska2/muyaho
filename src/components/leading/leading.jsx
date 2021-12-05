@@ -39,6 +39,16 @@ const Leading = () => {
         setIsVisible(true);
     };
 
+    const hadleCloseModal = () => {
+        setIsVisible(false);
+    }
+
+    const handleSaveStock = () => {
+        alert('저장되었습니다.');
+    }
+
+    
+
     const columns = useMemo(() => [
         {
             dataIndex: 'code',
@@ -118,6 +128,8 @@ const Leading = () => {
             </Row>
             <Modal
                 visible={isVisible}
+                onOk={handleSaveStock}
+                onCancel={hadleCloseModal}
             >
                 <Input />
             </Modal>
