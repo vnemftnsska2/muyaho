@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useMemo, } from 'react';
 import styles from './leading.module.css';
 import PageTitle from '../page_title/page_title';
-import { Table, Row, Col, Button, Modal, Input, } from 'antd';
+import { Table, Row, Col, Button, Modal, Form, Input, Select } from 'antd';
 import { PlusCircleOutlined, } from '@ant-design/icons';
 import _default from 'rc-trigger';
-
 
 const Leading = () => {
     const [leadingList, setLeadingList] = useState([]);
     const [isVisible, setIsVisible] = useState(false);
+    const { Option } = Select;
     const getLeadingList = () => {
         return fetch('/api/reading', {
             mode: 'no-cors',
@@ -35,19 +35,17 @@ const Leading = () => {
         setLeadingList(data);
     }, []);
 
-    const handleShowModal = () => {
+    const showModal = () => {
         setIsVisible(true);
     };
 
-    const hadleCloseModal = () => {
+    const closeModal = () => {
         setIsVisible(false);
     }
 
     const handleSaveStock = () => {
         alert('저장되었습니다.');
     }
-
-    
 
     const columns = useMemo(() => [
         {
@@ -109,7 +107,7 @@ const Leading = () => {
                         className={styles.addButton}
                         type="primary"
                         danger
-                        onClick={handleShowModal}    
+                        onClick={showModal}    
                     >
                     <PlusCircleOutlined />추가
                     </Button>
@@ -127,11 +125,119 @@ const Leading = () => {
                 />
             </Row>
             <Modal
+                title="종목 추가"
                 visible={isVisible}
                 onOk={handleSaveStock}
-                onCancel={hadleCloseModal}
+                onCancel={closeModal}
+                footer={[
+                    <Button
+                        key="submit"
+                        type="primary"
+                        // loading={loading}
+                        onClick={handleSaveStock}>
+                    저장
+                    </Button>,
+                ]}
             >
-                <Input />
+                <Form
+                    layout="vertical"
+                >
+                    <Row>
+                        <Col span={7}>
+                            <Form.Item
+                                name={['stock', 'type']}
+                                label="타입"
+                                rules={[
+                                    { required: true }
+                                ]}
+                            >
+                                <Select defaultValue="stock">
+                                    <Option value="stock">주식</Option>
+                                    <Option value="coin">코인</Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                        <Col span={1}/>
+                        <Col span={7}>
+                            <Form.Item
+                                name={['stock', 'type']}
+                                label="Code"
+                                rules={[
+                                    { required: true }
+                                ]}
+                            >
+                                <Input />
+                            </Form.Item>
+                        </Col>
+                        <Col span={1}/>
+                        <Col span={7}>
+                            <Form.Item
+                                name={['stock', 'type']}
+                                label="Code"
+                                rules={[
+                                    { required: true }
+                                ]}
+                            >
+                                <Input />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={7}>
+                            <Form.Item
+                                name={['stock', 'code']}
+                                label="Code"
+                                rules={[
+                                    { required: true }
+                                ]}
+                            >
+                                <Input />
+                            </Form.Item>
+                        </Col>
+                        <Col span={15} offset={1}>
+                            <Form.Item
+                                name={['stock', 'name']}
+                                label="종목명"
+                                rules={[
+                                    { required: true, }
+                                ]}
+                            >
+                                <Input/>
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={7}>
+                            <Form.Item
+                                name={['stock', 'first_price']}
+                                label="1차 가격"
+                                rules={[
+                                    { required: true, }
+                                ]}
+                            >
+                                <Input />
+                            </Form.Item>
+                        </Col>
+                        <Col span={1}/>
+                        <Col span={7}>
+                            <Form.Item
+                                name={['stock', 'second_price']}
+                                label="2차 가격"
+                            >
+                                <Input />
+                            </Form.Item>
+                        </Col>
+                        <Col span={1}/>
+                        <Col span={7}>
+                            <Form.Item
+                                name={['stock', 'third_price']}
+                                label="3차 가격"
+                            >
+                                <Input />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                </Form>
             </Modal>
         </>
     );
