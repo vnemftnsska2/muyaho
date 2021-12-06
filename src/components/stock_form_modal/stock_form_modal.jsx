@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-// import styles from './stock_form.module.css';
 import {Modal, Form, Row, Col, Button, Input, Select, DatePicker, Upload} from 'antd';
 import { CloudUploadOutlined, } from '@ant-design/icons';
 import moment from 'moment';
@@ -7,11 +6,6 @@ import moment from 'moment';
 const StockForm = ({isVisible, closeModal, submitStockForm, }) => {
     const [form] = Form.useForm();
     const { Option } = Select;
-
-    const handleSubmit = () => {
-        submitStockForm();
-        form.resetFields();
-    };
 
     return (
         <Modal
@@ -22,6 +16,7 @@ const StockForm = ({isVisible, closeModal, submitStockForm, }) => {
                     .validateFields()
                     .then(values => {
                         submitStockForm(values);
+                        form.resetFields();
                     })
                     .catch(info => {
                         console.log('Validate Failed: ', info);
@@ -35,7 +30,8 @@ const StockForm = ({isVisible, closeModal, submitStockForm, }) => {
                 form={form}
                 layout="vertical"
                 initialValues={{
-                    type: 'stock'
+                    type: 'stock',
+                    lead_date: moment(),
                 }}
             >
                 <Row>
@@ -127,7 +123,7 @@ const StockForm = ({isVisible, closeModal, submitStockForm, }) => {
                                 { required: true, }
                             ]}
                         >
-                            <DatePicker defaultValue={moment()}/>
+                            <DatePicker />
                         </Form.Item>
                     </Col>
                     <Col span={1}/>
@@ -162,14 +158,23 @@ const StockForm = ({isVisible, closeModal, submitStockForm, }) => {
                 </Row>
                 <Row>
                     <Col span={23}>
-                    <Upload
-                        // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                        name="upload"                    
-                        listType="picture"
-                        maxCount={1}
-                    >
-                        <Button icon={<CloudUploadOutlined />}>차트 업로드</Button>
-                    </Upload>
+                        <Form.Item
+                            name="upload"
+                            valuePropName="fileList"
+                            getValueFromEvent={e => {
+                                if (Array.isArray(e)) {
+                                    return e;
+                                }
+                                return e && e.fileList;
+                            }}
+                        >
+                            <Upload
+                                listType="picture"
+                                maxCount={1}
+                            >
+                                <Button icon={<CloudUploadOutlined />}>차트 업로드</Button>
+                            </Upload>
+                        </Form.Item>
                     </Col>
                 </Row>
             </Form>
