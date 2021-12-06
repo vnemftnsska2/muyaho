@@ -3,17 +3,17 @@ import styles from './app.module.css';
 import 'antd/dist/antd.css';
 import { BrowserRouter, Routes, Route, } from "react-router-dom";
 
-import Login from './components/login/login';
+import Login from './components/pages/login/login';
 import Layout from './layout/layout';
-import Dashboard from './components/dashboard/dashboard';
-import Error404 from './components/error_404/error_404';
-import MyInfo from './components/my_info/my_info';
-import MyList from './components/my_list/my_list';
-import Leading from './components/leading/leading';
-import Analysis from './components/anlysis/analysis';
-import FreeTalk from './components/free_talk/free_talk';
-import Report from './components/report/report';
-import Setting from './components/setting/setting';
+import Dashboard from './components/pages/dashboard/dashboard';
+import Error404 from './components/pages/error_404/error_404';
+import MyInfo from './components/pages/my_info/my_info';
+import MyList from './components/pages/my_list/my_list';
+import Leading from './components/pages/leading/leading';
+import Analysis from './components/pages/anlysis/analysis';
+import FreeTalk from './components/pages/free_talk/free_talk';
+import Report from './components/pages/report/report';
+import Setting from './components/pages/setting/setting';
 
 const App = () => {
   return (

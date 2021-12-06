@@ -1,8 +1,8 @@
-@value realWhite, commonRed, commonWhite from '../../common/color.css';
+@value realWhite, commonRed, commonWhite from '../../../common/color.css';
 
 @font-face {
   font-family: 'cafe24-ssuround';
-  src: url(../../fonts/Cafe24Ssurround.ttf) format('truetype');
+  src: url(../../../fonts/Cafe24Ssurround.ttf) format('truetype');
   font-weight: 300;
 }
 
