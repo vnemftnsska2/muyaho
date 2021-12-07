@@ -20,8 +20,8 @@ const Leading = () => {
         })
         .then(res => res.json())
         .then(result => {
-            return result.list.map(stock => {
-                stock.key = stock.code;
+            return result.map(stock => {
+                stock.key = stock.id;
                 return stock;
             });
         })
@@ -44,9 +44,25 @@ const Leading = () => {
         setIsVisible(false);
     }
 
-    const handleSaveStock = (formValues) => {
+    const handleSaveStock = async (formValues) => {
         console.log(formValues);
-        alert('저장되었습니다.');
+        return await fetch('/api/reading', {
+            mode: 'no-cors',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formValues),
+        })
+        .then(res => res.json())
+        .then(result => {
+            console.log(result);
+            alert('저장되었습니다.');
+        })
+        .catch(err => {
+            console.log(err);
+            return [];
+        });
     }
 
     const columns = useMemo(() => [
