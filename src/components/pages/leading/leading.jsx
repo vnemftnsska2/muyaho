@@ -46,16 +46,16 @@ const Leading = () => {
     const handleSaveStock = (formValues, formReset) => {
         const formData = new FormData();
         for (const key in formValues) {
-            formData.append(key, formValues[key]);
+                formData.append(key, formValues[key]);
         }
 
         return fetch('/api/leading', {
             method: 'POST',
-            // headers: {
-            //     'Content-Type': 'application/json',
-            // },
-            // body: JSON.stringify(formValues),
-            body: formData,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formValues),
+            // body: formData,
         })
         .then(res => res.json())
         .then(({isOK, }) => {
@@ -63,7 +63,7 @@ const Leading = () => {
                 return alert('처리 실패하였습니다.');
             }
             alert('저장되었습니다.');
-            // formReset();
+            formReset();
         })
         .catch(err => {
             console.log(err);
