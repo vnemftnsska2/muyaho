@@ -32,7 +32,7 @@ const StockForm = ({isVisible, closeModal, submitStockForm, }) => {
                 layout="vertical"
                 initialValues={{
                     type: 'stock',
-                    lead_date: moment(),
+                    lead_at: moment(),
                 }}
             >
                 <Row>
@@ -118,7 +118,7 @@ const StockForm = ({isVisible, closeModal, submitStockForm, }) => {
                 <Row>
                     <Col span={7}>
                         <Form.Item
-                            name="lead_date"
+                            name="lead_at"
                             label="리딩일"
                             rules={[
                                 { required: true, }

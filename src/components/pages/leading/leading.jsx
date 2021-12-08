@@ -44,11 +44,13 @@ const Leading = () => {
     }
 
     const handleSaveStock = (formValues, formReset) => {
+        // Chart Upload 보류
         const formData = new FormData();
         for (const key in formValues) {
                 formData.append(key, formValues[key]);
         }
 
+        // JSON 형태로 데이터만 전송
         return fetch('/api/leading', {
             method: 'POST',
             headers: {
@@ -58,16 +60,16 @@ const Leading = () => {
             // body: formData,
         })
         .then(res => res.json())
-        .then(({isOK, }) => {
-            if (!isOK) {
+        .then(({status, }) => {
+            if (status !== 200) {
                 return alert('처리 실패하였습니다.');
             }
             alert('저장되었습니다.');
-            formReset();
+            // formReset();
         })
         .catch(err => {
             console.log(err);
-            return [];
+            return alert('처리 실패하였습니다.');
         });
     }
 
@@ -109,16 +111,16 @@ const Leading = () => {
             title: '손실가'
         },
         {
-            dataIndex: 'read_dt',
+            dataIndex: 'lead_at',
             title: '리딩날짜'
         },
         {
-            dataIndex: 'goal_dt',
-            title: '리딩날짜'
+            dataIndex: 'goal_at',
+            title: '목표달성일'
         },
         {
-            dataIndex: 'loss_dt',
-            title: '리딩날짜'
+            dataIndex: 'loss_at',
+            title: '손절날짜'
         },
     ], []);
 
