@@ -11,8 +11,7 @@ const Leading = () => {
     const [isVisible, setIsVisible] = useState(false);
     
     const getLeadingList = () => {
-        return fetch('/api/reading', {
-            mode: 'no-cors',
+        return fetch('/api/leading', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -44,20 +43,27 @@ const Leading = () => {
         setIsVisible(false);
     }
 
-    const handleSaveStock = async (formValues) => {
-        console.log(formValues);
-        return await fetch('/api/reading', {
-            mode: 'no-cors',
+    const handleSaveStock = (formValues, formReset) => {
+        const formData = new FormData();
+        for (const key in formValues) {
+            formData.append(key, formValues[key]);
+        }
+
+        return fetch('/api/leading', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formValues),
+            // headers: {
+            //     'Content-Type': 'application/json',
+            // },
+            // body: JSON.stringify(formValues),
+            body: formData,
         })
         .then(res => res.json())
-        .then(result => {
-            console.log(result);
+        .then(({isOK, }) => {
+            if (!isOK) {
+                return alert('처리 실패하였습니다.');
+            }
             alert('저장되었습니다.');
+            // formReset();
         })
         .catch(err => {
             console.log(err);

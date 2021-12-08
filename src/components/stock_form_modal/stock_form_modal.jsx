@@ -15,8 +15,9 @@ const StockForm = ({isVisible, closeModal, submitStockForm, }) => {
                 form
                     .validateFields()
                     .then(values => {
-                        submitStockForm(values);
-                        form.resetFields();
+                        submitStockForm(values, () => {
+                            form.resetFields();
+                        });
                     })
                     .catch(info => {
                         console.log('Validate Failed: ', info);
