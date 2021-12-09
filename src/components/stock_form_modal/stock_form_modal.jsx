@@ -3,13 +3,13 @@ import {Modal, Form, Row, Col, Button, Input, Select, DatePicker, Upload} from '
 import { CloudUploadOutlined, } from '@ant-design/icons';
 import moment from 'moment';
 
-const StockForm = ({isVisible, closeModal, submitStockForm, }) => {
+const StockForm = ({ title, isVisible, closeModal, submitStockForm, }) => {
     const [form] = Form.useForm();
     const { Option } = Select;
 
     return (
         <Modal
-            title="종목 추가"
+            title={`종목 ${title}`}
             visible={isVisible}
             onOk={() => {
                 form
@@ -33,6 +33,10 @@ const StockForm = ({isVisible, closeModal, submitStockForm, }) => {
                 initialValues={{
                     type: 'stock',
                     lead_at: moment(),
+                    first_price: 0,
+                    second_price: 0,
+                    third_price: 0,
+                    loss_price: 0,
                 }}
             >
                 <Row>
