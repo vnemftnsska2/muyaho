@@ -1,53 +1,36 @@
 import React, { useState, useEffect, useMemo, } from 'react';
 import styles from './leading.module.css';
 import PageTitle from '../../page_title/page_title';
-import { Table, Row, Col, Button, Tag, Tooltip } from 'antd';
+import { Table, Row, Col, Button, Tag, Tooltip, Input, Space} from 'antd';
 import { PlusCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import _default from 'rc-trigger';
 import StockFormModal from '../../stock_form_modal/stock_form_modal';
 
-const Leading = () => {
+const Leading = ({stockRepository}) => {
+    // 리딩 리스트
+    const [allList, setAllList] = useState([]); // 검색 때문에 하나 더 유지
     const [leadingList, setLeadingList] = useState([]);
-    const [nameKeyword, setNameKeyword] = useState('');
+
+    // 모달
     const [isVisible, setIsVisible] = useState(false);
     const [modalTitle, setModalTitle] = useState('');
-    
-    const getLeadingByKey = (key) => {
-        const apiUrl = key === undefined ? '/api/leading' : `/api/leading/${key}`
-        return fetch(apiUrl, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        .then(res => res.json())
-        .then(result => {
-            return result.map(stock => {
-                stock.key = stock.id;
-                return stock;
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            return [];
-        });
-    };
 
     useEffect(async () => {
-        const data = await getLeadingByKey();
+        const data = await stockRepository.syncLeadingList();
+        setAllList(data);
         setLeadingList(data);
-    }, []);
+    }, [stockRepository]);
 
-    const showModal = async event => {
+    const showModal = event => {
         const target = event.target;
         const tagName = target.tagName;
-        const title = tagName === 'BUTTON' ? '추가' : '수정'
+        const title = tagName === 'A' ? '수정' : '추가';
         if (tagName === 'A') {
             const key = target.dataset.key;
-            const stock = await getLeadingByKey(key);
+            const stock = stockRepository.syncLeadingList(key);
             console.log('수정할 데이터', stock);
         } else if (tagName === 'BUTTON') {
-
+            
         }
         setModalTitle(title);
         setIsVisible(true);
@@ -87,11 +70,16 @@ const Leading = () => {
         });
     }
 
+    const handleSearch = event => {
+        const searchList = allList
+            .filter(stock => stock.name.indexOf(event.target.value) > -1);
+        setLeadingList(searchList);
+    };
+
     const columns = useMemo(() => [
         {
             dataIndex: 'type',
-            title: '',
-            width: '2.5%',
+            width: '3%',
             align: 'center',
             filters: [
                 { text: '주식', value: 'stock' },
@@ -100,7 +88,10 @@ const Leading = () => {
             onFilter: (value, record) => record.type.includes(value),
             render: (v) => (
                 <> 
-                    { v === 'stock' ? <Tag color="red">S</Tag> : <Tag color="blue">C</Tag> }
+                    { v === 'stock' ?
+                        <Tag color="red">S</Tag>
+                        : <Tag color="blue">C</Tag>
+                    }
                 </>
             ) 
         },
@@ -200,16 +191,25 @@ const Leading = () => {
     return (
         <>
             <PageTitle title='LEADING' />
-            <Row justify="end">
-                <Col span={32}>
+            <Row justify="start">
+                <Col span={18}>
                     <Button
                         className={styles.addButton}
                         type="primary"
                         danger
-                        onClick={showModal}    
+                        onClick={showModal}
                     >
-                    <PlusCircleOutlined />추가
+                        <PlusCircleOutlined />추가
                     </Button>
+                </Col>
+                <Col span={6}>
+                    <Input.Search
+                        addonBefore="종목명"
+                        placeholder="종목명을 입주세요"
+                        allowClear
+                        enterButton
+                        onChange={handleSearch}
+                    />
                 </Col>
             </Row>
             <Row>
@@ -219,6 +219,7 @@ const Leading = () => {
                     size="small"
                     columns={columns}
                     dataSource={leadingList}
+                    rowKey={record => record.id}
                     pagination={{ pageSize: 50 }}
                     scroll={{ y: 600 }}
                 />

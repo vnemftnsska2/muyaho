@@ -1,10 +1,8 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 import styles from './error_404.module.css';
 
 const Error404 = (props) => {
-  const navigator = useNavigate();
-
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>ERROR 404</h1>

@@ -15,7 +15,7 @@ import FreeTalk from './components/pages/free_talk/free_talk';
 import Report from './components/pages/report/report';
 import Setting from './components/pages/setting/setting';
 
-const App = () => {
+const App = ({stockRepository, }) => {
   return (
     <div className={styles.app}>
       <BrowserRouter>
@@ -25,7 +25,7 @@ const App = () => {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="myInfo" element={<MyInfo />} />
             <Route path="myList" element={<MyList />} />
-            <Route path="leading" element={<Leading />} />
+            <Route path="leading" element={<Leading stockRepository={stockRepository}/>} />
             <Route path="analysis" element={<Analysis />} />
             <Route path="freeTalk" element={<FreeTalk />} />
             <Route path="report" element={<Report />} />
