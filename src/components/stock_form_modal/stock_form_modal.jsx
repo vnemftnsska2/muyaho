@@ -12,8 +12,7 @@ const StockForm = ({ title, isVisible, closeModal, submitStockForm, }) => {
             title={`종목 ${title}`}
             visible={isVisible}
             onOk={() => {
-                form
-                    .validateFields()
+                form.validateFields()
                     .then(values => {
                         submitStockForm(values, () => {
                             form.resetFields();

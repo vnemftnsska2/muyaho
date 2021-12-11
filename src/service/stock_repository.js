@@ -13,6 +13,7 @@ class StockRepository {
     });
     return await result.json();
   }
+  
 }
 
 export default StockRepository;

@@ -62,7 +62,7 @@ const Leading = ({stockRepository}) => {
                 return alert('처리 실패하였습니다.');
             }
             alert('저장되었습니다.');
-            
+            formReset();
         })
         .catch(err => {
             console.log(err);
@@ -104,7 +104,7 @@ const Leading = ({stockRepository}) => {
         {
             dataIndex: 'strategy',
             title: '투자',
-            width: '4%',
+            width: '5%',
             align: 'center',
             filters: [
                 { text: '단기', value: '단기' },
@@ -167,24 +167,24 @@ const Leading = ({stockRepository}) => {
         },
         {
             dataIndex: 'lead_at',
-            title: '리딩날짜',
-            width: '8%',
+            title: '리딩일',
+            width: '6%',
             align: 'center',
-            render: (v) => (v ? v.substring(0, 10) : '')
+            render: (v) => (v ? v.substring(2, 10) : '')
         },
         {
             dataIndex: 'goal_at',
-            title: '목표 달성일',
-            width: '8%',
+            title: '달성일',
+            width: '6%',
             align: 'center',
-            render: (v) => (v ? v.substring(0, 10) : '')
+            render: (v) => (v ? v.substring(2, 10) : '')
         },
         {
             dataIndex: 'loss_at',
-            title: '손절날짜',
-            width: '8%',
+            title: '손절일',
+            width: '6%',
             align: 'center',
-            render: (v) => (v ? v.substring(0, 10) : '')
+            render: (v) => (v ? v.substring(2, 10) : '')
         },
     ], []);
 
