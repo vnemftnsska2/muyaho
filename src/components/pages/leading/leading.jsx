@@ -17,7 +17,8 @@ const Leading = ({stockRepository}) => {
 
     useEffect(async () => {
         const data = await stockRepository.syncLeadingList();
-        if (data.fatal) {
+        console.log(data);
+        if (!data?.fatal) {
             setAllList(data);
             setLeadingList(data);
         }
