@@ -17,8 +17,10 @@ const Leading = ({stockRepository}) => {
 
     useEffect(async () => {
         const data = await stockRepository.syncLeadingList();
-        setAllList(data);
-        setLeadingList(data);
+        if (data.fatal) {
+            setAllList(data);
+            setLeadingList(data);
+        }
     }, [stockRepository]);
 
     const showModal = event => {
