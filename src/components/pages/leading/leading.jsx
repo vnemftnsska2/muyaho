@@ -14,24 +14,27 @@ const Leading = ({stockRepository}) => {
     // 모달
     const [isVisible, setIsVisible] = useState(false);
     const [modalTitle, setModalTitle] = useState('');
+    const [stockInfo, setStockInfo] = useState({});
 
     useEffect(async () => {
         const data = await stockRepository.syncLeadingList();
-        console.log(data);
         if (!data?.fatal) {
             setAllList(data);
             setLeadingList(data);
         }
     }, [stockRepository]);
 
-    const showModal = event => {
+    const showModal = async event => {
         const target = event.target;
         const tagName = target.tagName;
         const title = tagName === 'A' ? '수정' : '추가';
         if (tagName === 'A') {
             const key = target.dataset.key;
-            const stock = stockRepository.syncLeadingList(key);
-            console.log('수정할 데이터', stock);
+            const stock = await stockRepository.syncLeadingList(key);
+            if (!stock) {
+                return alert('요청 실패하였습니다.');
+            }
+            setStockInfo(stock[0]);
         } else if (tagName === 'BUTTON') {
             
         }
@@ -45,13 +48,18 @@ const Leading = ({stockRepository}) => {
 
     const handleSaveStock = (formValues, formReset) => {
         // Chart Upload 보류
+        let apiUrl = '/api/leading';;
         const formData = new FormData();
         for (const key in formValues) {
-            formData.append(key, formValues[key]);
+            if (key === 'id' && formValues[key]) {
+                apiUrl = `/api/leading/${formValues[key]}`
+            } else {
+                formData.append(key, formValues[key]);
+            }
         }
 
         // JSON 형태로 데이터만 전송
-        return fetch('/api/leading', {
+        return fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -102,7 +110,7 @@ const Leading = ({stockRepository}) => {
             dataIndex: 'name',
             title: '종목명',
             width: '10%',
-            render: (text, record) => <a data-key={ record.key } onClick={showModal}>{text}</a>
+            render: (text, record) => <a data-key={ record.id } onClick={showModal}>{text}</a>
         },
         {
             dataIndex: 'strategy',
@@ -229,6 +237,7 @@ const Leading = ({stockRepository}) => {
             </Row>
             <StockFormModal
                 title={modalTitle}
+                stockInfo={stockInfo}
                 isVisible={isVisible}
                 submitStockForm={handleSaveStock}
                 closeModal={closeModal}

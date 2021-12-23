@@ -3,9 +3,24 @@ import {Modal, Form, Row, Col, Button, Input, Select, DatePicker, Upload} from '
 import { CloudUploadOutlined, } from '@ant-design/icons';
 import moment from 'moment';
 
-const StockForm = ({ title, isVisible, closeModal, submitStockForm, }) => {
+const StockForm = ({ title, stockInfo, isVisible, closeModal, submitStockForm, }) => {
     const [form] = Form.useForm();
     const { Option } = Select;
+    if (stockInfo) {
+        form.setFieldsValue({
+            id: stockInfo.id,
+            strategy: stockInfo.strategy || '',
+            code: stockInfo.code || '',
+            name: stockInfo.name,
+            first_price: stockInfo.first_price,
+            second_price: stockInfo.second_price,
+            third_price: stockInfo.third_price,
+            goal_price: stockInfo.goal_price,
+            loss_price: stockInfo.loss_price,
+            bigo: stockInfo.bigo,
+            lead_at: moment(stockInfo.lead_at),
+        });
+    }
 
     return (
         <Modal
@@ -39,6 +54,11 @@ const StockForm = ({ title, isVisible, closeModal, submitStockForm, }) => {
                 }}
             >
                 <Row>
+                    <Form.Item
+                        name="id"
+                    >
+                        <Input type="hidden" />
+                    </Form.Item>
                     <Col span={7}>
                         <Form.Item
                             name="type"
@@ -62,7 +82,7 @@ const StockForm = ({ title, isVisible, closeModal, submitStockForm, }) => {
                                 { required: true }
                             ]}
                         >
-                            <Input />
+                            <Input/>
                         </Form.Item>
                     </Col>
                 </Row>
