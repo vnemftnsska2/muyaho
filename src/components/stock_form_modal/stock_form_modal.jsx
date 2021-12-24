@@ -1,9 +1,10 @@
 import React from 'react';
+import styles from './stock_form_modal.module.css';
 import {Modal, Form, Row, Col, Button, Input, Select, DatePicker, Upload} from 'antd';
 import { CloudUploadOutlined, } from '@ant-design/icons';
 import moment from 'moment';
 
-const StockForm = ({ title, stockInfo, isVisible, closeModal, submitStockForm, }) => {
+const StockForm = ({ title, stockInfo, isVisible, closeModal, submitStockForm, deleteStock, }) => {
     const [form] = Form.useForm();
     const { Option } = Select;
     if (stockInfo) {
@@ -22,27 +23,45 @@ const StockForm = ({ title, stockInfo, isVisible, closeModal, submitStockForm, }
         });
     }
 
+    const formReset = () => {
+        form.resetFields();
+    }
+
+    const handleSubmit = () => {
+        form.validateFields()
+            .then(values => {
+                submitStockForm(values, formReset);
+            })
+            .catch(info => {
+                console.log('Validate Failed: ', info);
+            });
+    };
+
+    const handleDelete = () => {
+        deleteStock(form.getFieldValue('id'), formReset);
+    };
+
     return (
         <Modal
             title={`종목 ${title}`}
             visible={isVisible}
-            onOk={() => {
-                form.validateFields()
-                    .then(values => {
-                        submitStockForm(values, () => {
-                            form.resetFields();
-                        });
-                    })
-                    .catch(info => {
-                        console.log('Validate Failed: ', info);
-                    });
-            }}
+            onOk={handleSubmit}
             onCancel={closeModal}
+            footer={[
+                <Button key="cancel" onClick={closeModal}>취소</Button>,
+                <Button
+                    key="delete"
+                    type="danger"
+                    onClick={handleDelete}
+                >삭제</Button>,
+                <Button key="submit" type="primary" onClick={handleSubmit}>저장</Button>,
+            ]}
             okText="저장"
             cancelText="취소"
         >
             <Form
                 form={form}
+                name="control-hooks"
                 layout="vertical"
                 initialValues={{
                     type: 'stock',

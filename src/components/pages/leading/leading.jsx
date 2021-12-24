@@ -81,6 +81,32 @@ const Leading = ({stockRepository}) => {
         });
     }
 
+    const deleteStock = (stockId, formReset) => {
+        if (stockId === undefined) {
+            return alert('삭제할 데이터가 존재하지 않습니다.');
+        }
+
+        // JSON 형태로 데이터만 전송
+        return fetch(`/api/leading/delete/${stockId}`, {
+            method: 'POST',
+            // headers: {
+            //     'Content-Type': 'application/json',
+            // },
+        })
+        .then(res => res.json())
+        .then(({status, }) => {
+            if (status !== 200) {
+                return alert('처리 실패하였습니다.');
+            }
+            alert('종목이 삭제되었습니다.');
+            formReset();
+        })
+        .catch(err => {
+            console.log(err);
+            return alert('처리 실패하였습니다.');
+        });
+    }
+
     const handleSearch = event => {
         const searchList = allList
             .filter(stock => stock.name.indexOf(event.target.value) > -1);
@@ -100,8 +126,7 @@ const Leading = ({stockRepository}) => {
             render: (v) => (
                 <> 
                     { v === 'stock' ?
-                        <Tag color="red">S</Tag>
-                        : <Tag color="blue">C</Tag>
+                        <Tag color="red">S</Tag> : <Tag color="blue">C</Tag>
                     }
                 </>
             ) 
@@ -216,7 +241,7 @@ const Leading = ({stockRepository}) => {
                 <Col span={6}>
                     <Input.Search
                         addonBefore="종목명"
-                        placeholder="종목명을 입주세요"
+                        placeholder="종목명을 입력해주세요"
                         allowClear
                         enterButton
                         onChange={handleSearch}
@@ -241,6 +266,7 @@ const Leading = ({stockRepository}) => {
                 isVisible={isVisible}
                 submitStockForm={handleSaveStock}
                 closeModal={closeModal}
+                deleteStock={deleteStock}
             />
         </>
     );
