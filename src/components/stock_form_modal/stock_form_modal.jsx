@@ -7,7 +7,7 @@ import moment from 'moment';
 const StockForm = ({ title, stockInfo, isVisible, closeModal, submitStockForm, deleteStock, }) => {
     const [form] = Form.useForm();
     const { Option } = Select;
-
+    console.log(stockInfo);
     if (stockInfo) {
         form.setFieldsValue({
             id: stockInfo.id,
@@ -22,6 +22,9 @@ const StockForm = ({ title, stockInfo, isVisible, closeModal, submitStockForm, d
             bigo: stockInfo.bigo,
             lead_at: moment(stockInfo.lead_at),
         });
+    } else {
+        console.log(stockInfo);
+        form.resetFields();
     }
 
     const formReset = () => {
@@ -42,19 +45,14 @@ const StockForm = ({ title, stockInfo, isVisible, closeModal, submitStockForm, d
         deleteStock(form.getFieldValue('id'), formReset);
     };
 
-    const handleClose = () => {
-        form.resetFields(); // 이게 안 먹힙니다...
-        closeModal();
-    }
-
     return (
         <Modal
             title={`종목 ${title}`}
             visible={isVisible}
             onOk={handleSubmit}
-            onCancel={handleClose}
+            onCancel={closeModal}
             footer={[
-                <Button key="cancel" onClick={handleClose}>취소</Button>,
+                <Button key="cancel" onClick={closeModal}>취소</Button>,
                 <Button
                     key="delete"
                     type="danger"

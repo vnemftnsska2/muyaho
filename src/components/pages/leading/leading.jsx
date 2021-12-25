@@ -13,7 +13,7 @@ const Leading = ({stockRepository}) => {
     // 모달
     const [isVisible, setIsVisible] = useState(false);
     const [modalTitle, setModalTitle] = useState('');
-    const [stockInfo, setStockInfo] = useState({});
+    const [stockInfo, setStockInfo] = useState(null);
     
     const getLeadingList = async () => {
         const data = await stockRepository.syncLeadingList();
@@ -23,7 +23,7 @@ const Leading = ({stockRepository}) => {
         }
     }
 
-    // Use Effect
+    // Init
     useEffect(getLeadingList, [stockRepository]);
 
     const showModal = async event => {
@@ -37,9 +37,10 @@ const Leading = ({stockRepository}) => {
                 return alert('요청 실패하였습니다.');
             }
             setStockInfo(stock[0]);
-        } else if (tagName === 'BUTTON') {
-            
+        } else {
+            setStockInfo(null);
         }
+        
         setModalTitle(title);
         setIsVisible(true);
     };
