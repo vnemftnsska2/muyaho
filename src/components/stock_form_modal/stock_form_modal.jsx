@@ -7,6 +7,7 @@ import moment from 'moment';
 const StockForm = ({ title, stockInfo, isVisible, closeModal, submitStockForm, deleteStock, }) => {
     const [form] = Form.useForm();
     const { Option } = Select;
+
     if (stockInfo) {
         form.setFieldsValue({
             id: stockInfo.id,
@@ -41,14 +42,19 @@ const StockForm = ({ title, stockInfo, isVisible, closeModal, submitStockForm, d
         deleteStock(form.getFieldValue('id'), formReset);
     };
 
+    const handleClose = () => {
+        form.resetFields(); // 이게 안 먹힙니다...
+        closeModal();
+    }
+
     return (
         <Modal
             title={`종목 ${title}`}
             visible={isVisible}
             onOk={handleSubmit}
-            onCancel={closeModal}
+            onCancel={handleClose}
             footer={[
-                <Button key="cancel" onClick={closeModal}>취소</Button>,
+                <Button key="cancel" onClick={handleClose}>취소</Button>,
                 <Button
                     key="delete"
                     type="danger"
@@ -101,7 +107,13 @@ const StockForm = ({ title, stockInfo, isVisible, closeModal, submitStockForm, d
                                 { required: true }
                             ]}
                         >
-                            <Input/>
+                            <Select>
+                                <Option value="단기">단기</Option>
+                                <Option value="농사">농사</Option>
+                                <Option value="스윙">스윙</Option>
+                                <Option value="중기">중기</Option>
+                                <Option value="장기">장기</Option>
+                            </Select>
                         </Form.Item>
                     </Col>
                 </Row>

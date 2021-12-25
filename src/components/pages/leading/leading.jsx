@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useMemo, } from 'react';
 import styles from './leading.module.css';
 import PageTitle from '../../page_title/page_title';
-import { Table, Row, Col, Button, Tag, Tooltip, Input, Space} from 'antd';
-import { PlusCircleOutlined, SearchOutlined } from '@ant-design/icons';
-import _default from 'rc-trigger';
+import { Table, Row, Col, Button, Tag, Tooltip, Input, } from 'antd';
+import { PlusCircleOutlined, } from '@ant-design/icons';
 import StockFormModal from '../../stock_form_modal/stock_form_modal';
 
 const Leading = ({stockRepository}) => {
@@ -94,9 +93,6 @@ const Leading = ({stockRepository}) => {
         // JSON 형태로 데이터만 전송
         return fetch(`/api/leading/delete/${stockId}`, {
             method: 'POST',
-            // headers: {
-            //     'Content-Type': 'application/json',
-            // },
         })
         .then(res => res.json())
         .then(({status, }) => {
@@ -104,8 +100,9 @@ const Leading = ({stockRepository}) => {
                 return alert('처리 실패하였습니다.');
             }
             alert('종목이 삭제되었습니다.');
-            closeModal();
+            getLeadingList();
             formReset();
+            closeModal();
         })
         .catch(err => {
             console.log(err);
