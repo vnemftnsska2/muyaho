@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './stock_form_modal.module.css';
+// import styles from './stock_form_modal.module.css';
 import {Modal, Form, Row, Col, Button, Input, Select, DatePicker, Upload} from 'antd';
 import { CloudUploadOutlined, } from '@ant-design/icons';
 import moment from 'moment';

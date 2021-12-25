@@ -15,14 +15,17 @@ const Leading = ({stockRepository}) => {
     const [isVisible, setIsVisible] = useState(false);
     const [modalTitle, setModalTitle] = useState('');
     const [stockInfo, setStockInfo] = useState({});
-
-    useEffect(async () => {
+    
+    const getLeadingList = async () => {
         const data = await stockRepository.syncLeadingList();
         if (!data?.fatal) {
             setAllList(data);
             setLeadingList(data);
         }
-    }, [stockRepository]);
+    }
+
+    // Use Effect
+    useEffect(getLeadingList, [stockRepository]);
 
     const showModal = async event => {
         const target = event.target;
@@ -48,7 +51,7 @@ const Leading = ({stockRepository}) => {
 
     const handleSaveStock = (formValues, formReset) => {
         // Chart Upload 보류
-        let apiUrl = '/api/leading';;
+        let apiUrl = '/api/leading';
         const formData = new FormData();
         for (const key in formValues) {
             if (key === 'id' && formValues[key]) {
@@ -72,7 +75,9 @@ const Leading = ({stockRepository}) => {
             if (status !== 200) {
                 return alert('처리 실패하였습니다.');
             }
+            getLeadingList();
             alert('저장되었습니다.');
+            closeModal();
             formReset();
         })
         .catch(err => {
@@ -99,6 +104,7 @@ const Leading = ({stockRepository}) => {
                 return alert('처리 실패하였습니다.');
             }
             alert('종목이 삭제되었습니다.');
+            closeModal();
             formReset();
         })
         .catch(err => {
