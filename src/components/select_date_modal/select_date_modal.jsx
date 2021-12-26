@@ -6,7 +6,6 @@ import moment from 'moment'
 
 const SelectDateModal = ({title, stockInfo, isDateVisible, closeDateModal, submitUpdateDate}) => {
   const [form] = Form.useForm();
-
   useEffect(() => {
     if (stockInfo) {
       form.setFieldsValue({

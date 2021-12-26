@@ -97,12 +97,11 @@ const Leading = ({stockRepository}) => {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formValues),
-            // body: formData,
         })
         .then(res => res.json())
-        .then(({status, }) => {
+        .then(({status }) => {
             if (status !== 200) {
-                return alert('처리 실패하였습니다.');
+                return alert('처리 실패하였습니다.')
             }
             getLeadingList();
             alert('저장되었습니다.');
@@ -110,12 +109,8 @@ const Leading = ({stockRepository}) => {
         })
         .catch(err => {
             console.log(err);
-            return alert('처리 실패하였습니다.');
+            return alert('처리 실패하였습니다.')
         });
-    }
-
-    const handleUpdateGoalOrLossData = (formValues) => {
-
     }
 
     const deleteStock = (stockId) => {
@@ -139,6 +134,30 @@ const Leading = ({stockRepository}) => {
         .catch(err => {
             console.log(err);
             return alert('처리 실패하였습니다.');
+        });
+    }
+
+    const updateGoalOrLossDate = (formValues) => {
+        const apiUrl = `/api/leading/finish/${formValues.id}`;
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(formValues),
+        })
+        .then(res => res.json())
+        .then(({status}) => {
+            if (status !== 200) {
+                return alert('처리 실패하였습니다.')
+            }
+            getLeadingList();
+            const message = formValues.type === 'G' ?
+                '수익 달성 축하드립니다 🤩' : '힘내세요 🙌';
+            alert(message);
+            closeDateModal();
+        })
+        .catch(err => {
+            console.log(err);
+            return alert('처리 실패하였습니다.')
         });
     }
 
@@ -309,7 +328,7 @@ const Leading = ({stockRepository}) => {
                 stockInfo={stockInfo}
                 isDateVisible={isDateVisible}
                 closeDateModal={closeDateModal}
-                submitUpdateDate={handleUpdateGoalOrLossData}
+                submitUpdateDate={updateGoalOrLossDate}
             />
         </>
     );
