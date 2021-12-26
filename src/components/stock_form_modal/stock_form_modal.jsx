@@ -1,5 +1,5 @@
-import React from 'react';
-// import styles from './stock_form_modal.module.css';
+import React, {useEffect, } from 'react';
+import styles from './stock_form_modal.module.css';
 import {Modal, Form, Row, Col, Button, Input, Select, DatePicker, Upload} from 'antd';
 import { CloudUploadOutlined, } from '@ant-design/icons';
 import moment from 'moment';
@@ -7,34 +7,30 @@ import moment from 'moment';
 const StockForm = ({ title, stockInfo, isVisible, closeModal, submitStockForm, deleteStock, }) => {
     const [form] = Form.useForm();
     const { Option } = Select;
-    console.log(stockInfo);
-    if (stockInfo) {
-        form.setFieldsValue({
-            id: stockInfo.id,
-            strategy: stockInfo.strategy || '',
-            code: stockInfo.code || '',
-            name: stockInfo.name,
-            first_price: stockInfo.first_price,
-            second_price: stockInfo.second_price,
-            third_price: stockInfo.third_price,
-            goal_price: stockInfo.goal_price,
-            loss_price: stockInfo.loss_price,
-            bigo: stockInfo.bigo,
-            lead_at: moment(stockInfo.lead_at),
-        });
-    } else {
-        console.log(stockInfo);
-        form.resetFields();
-    }
-
-    const formReset = () => {
-        form.resetFields();
-    }
+    useEffect(() => {
+        if (stockInfo) {
+            form.setFieldsValue({
+                id: stockInfo.id,
+                strategy: stockInfo.strategy || '',
+                code: stockInfo.code || '',
+                name: stockInfo.name,
+                first_price: stockInfo.first_price,
+                second_price: stockInfo.second_price,
+                third_price: stockInfo.third_price,
+                goal_price: stockInfo.goal_price,
+                loss_price: stockInfo.loss_price,
+                bigo: stockInfo.bigo,
+                lead_at: moment(stockInfo.lead_at),
+            });
+        } else {
+            form.resetFields();
+        }
+    }, [stockInfo]);
 
     const handleSubmit = () => {
         form.validateFields()
             .then(values => {
-                submitStockForm(values, formReset);
+                submitStockForm(values, form.resetFields);
             })
             .catch(info => {
                 console.log('Validate Failed: ', info);
@@ -42,7 +38,7 @@ const StockForm = ({ title, stockInfo, isVisible, closeModal, submitStockForm, d
     };
 
     const handleDelete = () => {
-        deleteStock(form.getFieldValue('id'), formReset);
+        deleteStock(form.getFieldValue('id'));
     };
 
     return (
@@ -57,6 +53,7 @@ const StockForm = ({ title, stockInfo, isVisible, closeModal, submitStockForm, d
                     key="delete"
                     type="danger"
                     onClick={handleDelete}
+                    className={stockInfo ? '' : styles.hide}
                 >삭제</Button>,
                 <Button key="submit" type="primary" onClick={handleSubmit}>저장</Button>,
             ]}

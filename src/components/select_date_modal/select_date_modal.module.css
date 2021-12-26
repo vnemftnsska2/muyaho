@@ -1,0 +1,5 @@
+@value commonGrey from '../../common/color.css';
+
+.stockName {
+  background-color: #F7F5F4;
+}

@@ -1,6 +1,5 @@
 class StockRepository {
-  async syncLeadingList(key) {
-    console.log('key', key);
+  async asyncLeadingList(key) {
     const apiUrl = key === undefined ? '/api/leading' : `/api/leading/${key}`
     const result = await fetch(apiUrl, {
         method: 'GET',

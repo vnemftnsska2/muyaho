@@ -1,22 +1,26 @@
-import React, { useState, useEffect, useMemo, } from 'react';
 import styles from './leading.module.css';
+import React, { useState, useEffect, useMemo, } from 'react';
 import PageTitle from '../../page_title/page_title';
 import { Table, Row, Col, Button, Tag, Tooltip, Input, } from 'antd';
-import { PlusCircleOutlined, } from '@ant-design/icons';
+import { PlusCircleOutlined, ScheduleTwoTone, } from '@ant-design/icons';
 import StockFormModal from '../../stock_form_modal/stock_form_modal';
+import SelectDateModal from '../../select_date_modal/select_date_modal';
 
 const Leading = ({stockRepository}) => {
     // 리딩 리스트
     const [allList, setAllList] = useState([]); // 검색 때문에 하나 더 유지
     const [leadingList, setLeadingList] = useState([]);
 
-    // 모달
+    // Form 모달
     const [isVisible, setIsVisible] = useState(false);
     const [modalTitle, setModalTitle] = useState('');
     const [stockInfo, setStockInfo] = useState(null);
+
+    // Date 모달
+    const [isDateVisible, setIsDateVisible] = useState(false);
     
     const getLeadingList = async () => {
-        const data = await stockRepository.syncLeadingList();
+        const data = await stockRepository.asyncLeadingList();
         if (!data?.fatal) {
             setAllList(data);
             setLeadingList(data);
@@ -26,13 +30,14 @@ const Leading = ({stockRepository}) => {
     // Init
     useEffect(getLeadingList, [stockRepository]);
 
+    // Form Modal
     const showModal = async event => {
         const target = event.target;
         const tagName = target.tagName;
         const title = tagName === 'A' ? '수정' : '추가';
         if (tagName === 'A') {
-            const key = target.dataset.key;
-            const stock = await stockRepository.syncLeadingList(key);
+            const sid = target.dataset.sid;
+            const stock = await stockRepository.asyncLeadingList(sid);
             if (!stock) {
                 return alert('요청 실패하였습니다.');
             }
@@ -40,16 +45,42 @@ const Leading = ({stockRepository}) => {
         } else {
             setStockInfo(null);
         }
-        
         setModalTitle(title);
         setIsVisible(true);
-    };
+    }
+    
+    const closeModal = () => setIsVisible(false);
 
-    const closeModal = () => {
-        setIsVisible(false);
+    // Date Modal
+    const showDateModal = async event => {
+        const target = event.target;
+        let modalTitle = '';
+        let sid = target.dataset.sid;
+        let pNode = target.parentNode;
+        while(true) {
+            if (pNode?.dataset.sid) {
+                sid = parseInt(pNode.dataset.sid);
+                modalTitle = pNode.dataset.type === 'G' ? '달성일' : '손절일';
+                break;
+            } else {
+                pNode = pNode.parentNode;
+            }
+        }
+        // Get 달성 or 손절 도달한 종목
+        const stock = await stockRepository.asyncLeadingList(sid);
+        if (stock) {
+            setModalTitle(modalTitle);
+            setStockInfo(stock[0]);
+            setIsDateVisible(true);
+        } else {
+            alert('선택한 종목을 찾지 못 했습니다.');
+        }
     }
 
-    const handleSaveStock = (formValues, formReset) => {
+    const closeDateModal = () => setIsDateVisible(false);
+
+    // Stock Info Add || Update || Delete
+    const handleSaveStock = (formValues) => {
         // Chart Upload 보류
         let apiUrl = '/api/leading';
         const formData = new FormData();
@@ -64,9 +95,7 @@ const Leading = ({stockRepository}) => {
         // JSON 형태로 데이터만 전송
         return fetch(apiUrl, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formValues),
             // body: formData,
         })
@@ -78,7 +107,6 @@ const Leading = ({stockRepository}) => {
             getLeadingList();
             alert('저장되었습니다.');
             closeModal();
-            formReset();
         })
         .catch(err => {
             console.log(err);
@@ -86,7 +114,11 @@ const Leading = ({stockRepository}) => {
         });
     }
 
-    const deleteStock = (stockId, formReset) => {
+    const handleUpdateGoalOrLossData = (formValues) => {
+
+    }
+
+    const deleteStock = (stockId) => {
         if (stockId === undefined) {
             return alert('삭제할 데이터가 존재하지 않습니다.');
         }
@@ -102,7 +134,6 @@ const Leading = ({stockRepository}) => {
             }
             alert('종목이 삭제되었습니다.');
             getLeadingList();
-            formReset();
             closeModal();
         })
         .catch(err => {
@@ -115,7 +146,7 @@ const Leading = ({stockRepository}) => {
         const searchList = allList
             .filter(stock => stock.name.indexOf(event.target.value) > -1);
         setLeadingList(searchList);
-    };
+    }
 
     const columns = useMemo(() => [
         {
@@ -139,7 +170,7 @@ const Leading = ({stockRepository}) => {
             dataIndex: 'name',
             title: '종목명',
             width: '10%',
-            render: (text, record) => <a data-key={ record.id } onClick={showModal}>{text}</a>
+            render: (text, record) => <a data-sid={ record.id } onClick={showModal}>{text}</a>
         },
         {
             dataIndex: 'strategy',
@@ -210,21 +241,21 @@ const Leading = ({stockRepository}) => {
             title: '리딩일',
             width: '6%',
             align: 'center',
-            render: (v) => (v ? v.substring(2, 10) : '')
+            render: (v) => (v ? v.substring(2, 10).replace(/-/gi, '.') : '')
         },
         {
             dataIndex: 'goal_at',
             title: '달성일',
             width: '6%',
             align: 'center',
-            render: (v) => (v ? v.substring(2, 10) : '')
+            render: (v, record) => (v ? v.substring(2, 10).replace(/-/gi, '.') : <ScheduleTwoTone data-sid={record.id} data-type="G" twoToneColor="#52c41a" className={styles.twotoneIcon} onClick={showDateModal}/>)
         },
         {
             dataIndex: 'loss_at',
             title: '손절일',
             width: '6%',
             align: 'center',
-            render: (v) => (v ? v.substring(2, 10) : '')
+            render: (v, record) => (v ? v.substring(2, 10).replace(/-/gi, '.') : <ScheduleTwoTone data-sid={record.id} data-type="L" twoToneColor="#eb2f96" className={styles.twotoneIcon} onClick={showDateModal}/>)
         },
     ], []);
 
@@ -271,6 +302,14 @@ const Leading = ({stockRepository}) => {
                 submitStockForm={handleSaveStock}
                 closeModal={closeModal}
                 deleteStock={deleteStock}
+            />
+
+            <SelectDateModal
+                title={modalTitle}
+                stockInfo={stockInfo}
+                isDateVisible={isDateVisible}
+                closeDateModal={closeDateModal}
+                submitUpdateDate={handleUpdateGoalOrLossData}
             />
         </>
     );
