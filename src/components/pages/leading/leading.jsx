@@ -2,7 +2,7 @@ import styles from './leading.module.css';
 import React, { useState, useEffect, useMemo, } from 'react';
 import PageTitle from '../../page_title/page_title';
 import { Table, Row, Col, Button, Tag, Tooltip, Input, } from 'antd';
-import { PlusCircleOutlined, ScheduleTwoTone, } from '@ant-design/icons';
+import { PlusCircleOutlined, ReconciliationFilled, ScheduleTwoTone, } from '@ant-design/icons';
 import StockFormModal from '../../stock_form_modal/stock_form_modal';
 import SelectDateModal from '../../select_date_modal/select_date_modal';
 
@@ -88,6 +88,9 @@ const Leading = ({stockRepository}) => {
             if (key === 'id' && formValues[key]) {
                 apiUrl = `/api/leading/${formValues[key]}`
             } else {
+                if ((key === 'code' || key === 'bigo') && !formValues[key]) {
+                    formValues[key] = '';
+                }
                 formData.append(key, formValues[key]);
             }
         }
@@ -267,14 +270,14 @@ const Leading = ({stockRepository}) => {
             title: '달성일',
             width: '6%',
             align: 'center',
-            render: (v, record) => (v ? v.substring(2, 10).replace(/-/gi, '.') : <ScheduleTwoTone data-sid={record.id} data-type="G" twoToneColor="#52c41a" className={styles.twotoneIcon} onClick={showDateModal}/>)
+            render: (v, record) => (v ? v.substring(2, 10).replace(/-/gi, '.') : (record.loss_at ? '' : <ScheduleTwoTone data-sid={record.id} data-type="G" twoToneColor="#52c41a" className={styles.twotoneIcon} onClick={showDateModal}/>))
         },
         {
             dataIndex: 'loss_at',
             title: '손절일',
             width: '6%',
             align: 'center',
-            render: (v, record) => (v ? v.substring(2, 10).replace(/-/gi, '.') : <ScheduleTwoTone data-sid={record.id} data-type="L" twoToneColor="#eb2f96" className={styles.twotoneIcon} onClick={showDateModal}/>)
+            render: (v, record) => (v ? v.substring(2, 10).replace(/-/gi, '.') : (record.goal_at ? '' : <ScheduleTwoTone data-sid={record.id} data-type="L" twoToneColor="#eb2f96" className={styles.twotoneIcon} onClick={showDateModal}/>))
         },
     ], []);
 
