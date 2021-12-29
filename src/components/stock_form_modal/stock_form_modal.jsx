@@ -28,23 +28,20 @@ const StockForm = ({ title, stockInfo, isVisible, closeModal, submitStockForm, d
     });
 
     const isNumberAndPositive = (value) => {
-        const numberRegEx = new RegExp(/\d*(\.?\d*)$/);
-        console.log('v:', value)
-        if (value && (value < 0 || value > 0 && !numberRegEx.test(value))) {
-            console.log('false')
-            return false;
+        const numberRegEx = new RegExp(/[0-9]g/);
+        if (typeof value === 'undefined' || value >= 0 || numberRegEx.test(value)) {
+            // undefined, 양수만 허용 (문자열 비허용)
+            return true;
         }
-        console.log('true')
-        return true;
+        return false;
     }
 
     const handleSubmit = () => {
         const formData = form.getFieldsValue();
         if (Object.keys(formData).find(k => k.includes('_price') && !isNumberAndPositive(formData[k]))) {
-            alert('1~3차 가격, 목표가, 손실가 필드는 숫자만 가능합니다.');
+            return alert('1~3차 가격, 목표가, 손실가 필드는 숫자만 가능합니다.');
         }
-        // console.log('이상무!')
-        // return;
+
         form.validateFields()
             .then(values => {
                 submitStockForm(values, form.resetFields);
