@@ -14,7 +14,7 @@ const SelectDateModal = ({title, stockInfo, isDateVisible, closeDateModal, submi
         bigo: stockInfo.bigo || '',
       });
     }
-  }, [stockInfo]);
+  });
   
   const leadAtAfterDate = (current) => {
     return stockInfo && moment(stockInfo.lead_at).subtract(1, 'days') > current

@@ -25,9 +25,26 @@ const StockForm = ({ title, stockInfo, isVisible, closeModal, submitStockForm, d
         } else {
             form.resetFields();
         }
-    }, [stockInfo]);
+    });
+
+    const isNumberAndPositive = (value) => {
+        const numberRegEx = new RegExp(/\d*(\.?\d*)$/);
+        console.log('v:', value)
+        if (value && (value < 0 || value > 0 && !numberRegEx.test(value))) {
+            console.log('false')
+            return false;
+        }
+        console.log('true')
+        return true;
+    }
 
     const handleSubmit = () => {
+        const formData = form.getFieldsValue();
+        if (Object.keys(formData).find(k => k.includes('_price') && !isNumberAndPositive(formData[k]))) {
+            alert('1~3차 가격, 목표가, 손실가 필드는 숫자만 가능합니다.');
+        }
+        // console.log('이상무!')
+        // return;
         form.validateFields()
             .then(values => {
                 submitStockForm(values, form.resetFields);
@@ -139,7 +156,7 @@ const StockForm = ({ title, stockInfo, isVisible, closeModal, submitStockForm, d
                             name="first_price"
                             label="1차 가격"
                             rules={[
-                                { required: true, }
+                                { required: true, },
                             ]}
                         >
                             <Input />
