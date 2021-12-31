@@ -15,13 +15,25 @@ const Login = () => {
         }
     };
 
-    const onLoginSubmit = event => {
+    const onLoginSubmit = async event => {
         const loginInfo = {
-            id: idRef.current.value,
+            userid: idRef.current.value,
             password: passwordRef.current.value,
         };
 
-        if (loginInfo.id === 'admin' && loginInfo.password === '') {
+        const loginRet = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: loginInfo,
+        })
+        .then(res => res.json())
+        .catch(console.log);
+
+        console.log(loginRet);
+
+        if (loginInfo.userid === 'admin' && loginInfo.password === '') {
             return navigate('/dashboard');
         }
         alert('로그인 정보를 확인해주세요!');
